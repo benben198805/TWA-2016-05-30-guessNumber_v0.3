@@ -1,21 +1,21 @@
 {
   "name": "1",
-  "version": "1.0.0",
-  "description": "Guess Number 版本：v0.1",
+  "version": "3.0.0",
+  "description": "Guess Number 版本：v0.3",
   "main": "index.js",
   "scripts": {
     "test": "jasmine"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benben198805/TWA-2016-05-28-guessNumber_v0.1.git"
+    "url": "git+https://github.com/benben198805/TWA-2016-05-28-guessNumber_v0.3.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/benben198805/TWA-2016-05-28-guessNumber_v0.1/issues"
+    "url": "https://github.com/benben198805/TWA-2016-05-28-guessNumber_v0.3/issues"
   },
-  "homepage": "https://github.com/benben198805/TWA-2016-05-28-guessNumber_v0.1#readme",
+  "homepage": "https://github.com/benben198805/TWA-2016-05-28-guessNumber_v0.3#readme",
   "dependencies": {
     "jasmine": "^2.4.1",
     "readline-sync": "^1.4.2"
