@@ -35,12 +35,11 @@ describe('gameController', function () {
     describe('gameController', function () {
         it('when call gameController with error input then round stay', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
-            spyOn(judgeUserInput, 'judgeUserInput').and.returnValues(false);
-            spyOn(input,'input').and.returnValues("123a");
-            var result=gameController.gameController();
+            spyOn(validateUserInput, 'validateUserInput').and.returnValues(false,true);
+            spyOn(input,'input').and.returnValues("123a","1234");
+            gameController.gameController();
             expect(gameController.round).toEqual(0);
             expect(gameController.targetNumber).toEqual("1234");
-            expect(result).toEqual(false);
         });
         it('when call gameController with right input at first time then reture congratulations', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");

@@ -25,17 +25,18 @@ var gameController = {
 
         while (this.round <= this.maxRound) {
             var userInput = input.input();
-            if (validateUserInput.validateUserInput(userInput)) {
-                var result = judgeUserInput.judgeUserInput(this.targetNumber, userInput);
-                if (result == "4A0B") {
-                    console.log("congratulations");
-                    return true;
-                } else {
-                    this.round++;
-                }
-            } else {
+            while (!validateUserInput.validateUserInput(userInput)) {
                 console.log("error input");
-                return false;
+                userInput = input.input();
+            }
+            
+            var result = judgeUserInput.judgeUserInput(this.targetNumber, userInput);
+            if (result == "4A0B") {
+                console.log("congratulations");
+                return true;
+            } else {
+                this.round++;
+                console.log(result);
             }
         }
         console.log("game over");
