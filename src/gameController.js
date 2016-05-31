@@ -9,6 +9,7 @@ var gameController = {
     targetNumber: "",
 
     beginGame: function () {
+        this.round=0;
         this.targetNumber = makeRandom.makeRandom();
     },
     endGame: function () {
@@ -19,30 +20,28 @@ var gameController = {
     gameController: function () {
         var result = "";
 
-        if (this.round == 0) {
-            this.beginGame();
-        }
+        this.beginGame();
 
-        while (this.round <= this.maxRound) {
+        while (this.round < this.maxRound) {
             var userInput = input.input();
             while (!validateUserInput.validateUserInput(userInput)) {
                 console.log("error input");
                 userInput = input.input();
             }
-            
+            this.round++;
+
             var result = judgeUserInput.judgeUserInput(this.targetNumber, userInput);
             if (result == "4A0B") {
                 console.log("congratulations");
                 return true;
             } else {
-                this.round++;
                 console.log(result);
             }
         }
         console.log("game over");
+
         this.endGame();
         return false;
-
     }
 }
 
