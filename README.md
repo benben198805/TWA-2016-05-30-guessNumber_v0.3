@@ -1,6 +1,6 @@
-# Guess Number v0.1
+# Guess Number v0.3
 
-Guess Number 版本：v0.1
+Guess Number 版本：v0.3
 
 ## 教学目标
 

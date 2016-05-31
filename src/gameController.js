@@ -1,6 +1,7 @@
 var judgeUserInput = require("../src/judgeUserInput");
 var makeRandom = require("../src/makeRandom");
 var validateUserInput = require("../src/validateUserInput");
+var input = require("../src/input");
 
 var gameController = {
     round: 0,
@@ -8,7 +9,6 @@ var gameController = {
     targetNumber: "",
 
     beginGame: function () {
-        this.round++;
         this.targetNumber = makeRandom.makeRandom();
     },
     endGame: function () {
@@ -16,28 +16,32 @@ var gameController = {
         this.targetNumber = "";
     },
 
-    gameController: function (userInput) {
+    gameController: function () {
         var result = "";
 
         if (this.round == 0) {
             this.beginGame();
         }
 
-        if (validateUserInput.validateUserInput(userInput)) {
-            result = judgeUserInput.judgeUserInput(this.targetNumber, userInput);
-            if (result == "4A0B") {
-                result = "congratulations";
-            } else {
-                this.round++;
-                if (this.round > this.maxRound) {
-                    result = "game over";
-                    this.endGame();
+        while (this.round <= this.maxRound) {
+            var userInput = input.input();
+            if (validateUserInput.validateUserInput(userInput)) {
+                var result = judgeUserInput.judgeUserInput(this.targetNumber, userInput);
+                if (result == "4A0B") {
+                    console.log("congratulations");
+                    return true;
+                } else {
+                    this.round++;
                 }
+            } else {
+                console.log("error input");
+                return false;
             }
-        } else {
-            result = "error input";
         }
-        return result;
+        console.log("game over");
+        this.endGame();
+        return false;
+
     }
 }
 

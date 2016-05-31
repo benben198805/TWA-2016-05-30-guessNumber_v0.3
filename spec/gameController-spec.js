@@ -4,19 +4,21 @@ describe('gameController', function () {
     var judgeUserInput;
     var makeRandom;
     var validateUserInput;
+    var input;
 
     beforeEach(function () {
         gameController = require("../src/gameController");
         judgeUserInput = require("../src/judgeUserInput");
         makeRandom = require("../src/makeRandom");
         validateUserInput = require("../src/validateUserInput");
+        input = require("../src/input");
     });
 
     describe('beginGame', function () {
         it('when call beginGame set round and targetNumber', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
             gameController.beginGame();
-            expect(gameController.round).toEqual(1);
+            expect(gameController.round).toEqual(0);
             expect(gameController.targetNumber).toEqual("1234");
         });
     });
@@ -33,47 +35,41 @@ describe('gameController', function () {
     describe('gameController', function () {
         it('when call gameController with error input then round stay', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
-            spyOn(judgeUserInput, 'judgeUserInput').and.returnValue(false);
-            var result = gameController.gameController("123a");
-            expect(gameController.round).toEqual(1);
+            spyOn(judgeUserInput, 'judgeUserInput').and.returnValues(false);
+            spyOn(input,'input').and.returnValues("123a");
+            var result=gameController.gameController();
+            expect(gameController.round).toEqual(0);
             expect(gameController.targetNumber).toEqual("1234");
-            expect(result).toEqual("error input");
+            expect(result).toEqual(false);
         });
         it('when call gameController with right input at first time then reture congratulations', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
             spyOn(judgeUserInput, 'judgeUserInput').and.returnValue("4A0B");
-            var result = gameController.gameController("1234");
-            expect(result).toEqual("congratulations");
+            spyOn(input,'input').and.returnValue("1234");
+            var result = gameController.gameController();
+            expect(result).toEqual(true);
         });
         it('when call gameController with right input at second time then reture congratulations', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
             spyOn(judgeUserInput, 'judgeUserInput').and.returnValues("0A0B","4A0B");
-            gameController.gameController("5678");
-            var result = gameController.gameController("1234");
-            expect(result).toEqual("congratulations");
+            spyOn(input,'input').and.returnValue("5678","1234");
+            var result = gameController.gameController();
+            expect(result).toEqual(true);
         });
         it('when call gameController with right input at sixth time then reture congratulations', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
             spyOn(judgeUserInput, 'judgeUserInput').and.returnValues("0A0B","0A0B","0A0B","0A0B","0A0B","4A0B");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            var result = gameController.gameController("1234");
-            expect(result).toEqual("congratulations");
+            spyOn(input,'input').and.returnValue("5678","5678","5678","5678","5678","1234");
+            var result = gameController.gameController();
+            expect(result).toEqual(true);
         });
 
         it('when call gameController with wrong input at sixth time then reture game over', function () {
             spyOn(makeRandom, 'makeRandom').and.returnValue("1234");
             spyOn(judgeUserInput, 'judgeUserInput').and.returnValues("0A0B","0A0B","0A0B","0A0B","0A0B","0A0B");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            gameController.gameController("5678");
-            var result = gameController.gameController("5678");
-            expect(result).toEqual("game over");
+            spyOn(input,'input').and.returnValue("5678","5678","5678","5678","5678","5678");
+            var result = gameController.gameController();
+            expect(result).toEqual(false);
         });
     });
 });
